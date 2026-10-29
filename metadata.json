@@ -1,0 +1,10 @@
+{
+  "name": "Global Book Scanner & Bibliographic OCR",
+  "description": "High-precision barcode, QR, and OCR engine supporting Japanese ISBN4, Arabic, and global book identifiers with multi-catalog crawling, citation generator, and librarian export tools.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
