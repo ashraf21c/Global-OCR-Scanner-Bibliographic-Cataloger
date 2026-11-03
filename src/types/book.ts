@@ -27,6 +27,10 @@ export interface BookIdentifiers {
   alManhalId?: string; // Al-Manhal (المنهل)
   jamalonId?: string; // Jamalon (جملون)
   kotobnaId?: string; // Kotobna (كتبنا)
+  issn?: string; // International Standard Serial Number (e.g. 0028-0836)
+  eIssn?: string; // Electronic ISSN
+  issnL?: string; // Linking ISSN (ISSN-L)
+  coden?: string; // Chemical/Scientific serial CODEN
   rawOcrText?: string;
 }
 
@@ -91,6 +95,19 @@ export interface BookRecord {
   publisher: string;
   publishedDate: string;
   language: "ja" | "ar" | "en" | "fr" | "de" | "other" | string;
+  materialType?: "book" | "magazine" | "journal" | "serial";
+  periodicalInfo?: {
+    frequency?: string; // Monthly, Quarterly, Weekly, Annual, etc.
+    frequencyJa?: string; // 月刊, 季刊, 週刊, 年刊
+    frequencyAr?: string; // شهرية, فصلية, أسبوعية, سنوية
+    volume?: string;
+    issue?: string;
+    startYear?: string;
+    country?: string;
+    keyTitle?: string;
+    issnPortalUrl?: string;
+    crossrefUrl?: string;
+  };
   description?: string;
   coverImageUrl?: string;
   altCoverUrls?: string[];

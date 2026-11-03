@@ -51,6 +51,9 @@ let requestMetrics = {
 // In-memory cache for book records
 const bookCache = new Map<string, any>();
 
+// In-memory registry for custom user-added & JSON5 imported records
+const customRecords = new Map<string, any>();
+
 // Helper: Calculate ISBN-10 to ISBN-13 and vice-versa
 function normalizeIsbn(input: string) {
   const clean = input.replace(/[^0-9X-]/gi, "").trim();
@@ -58,8 +61,11 @@ function normalizeIsbn(input: string) {
 
   let isbn10: string | null = null;
   let isbn13: string | null = null;
+  let issn: string | null = null;
 
-  if (digitsOnly.length === 10) {
+  if (digitsOnly.length === 8) {
+    issn = `${digitsOnly.slice(0, 4)}-${digitsOnly.slice(4, 8)}`;
+  } else if (digitsOnly.length === 10) {
     isbn10 = digitsOnly;
     // Calculate ISBN-13 (978 + 9 digits + check digit)
     const base12 = "978" + digitsOnly.slice(0, 9);
@@ -95,6 +101,7 @@ function normalizeIsbn(input: string) {
     digitsOnly,
     isbn10,
     isbn13,
+    issn,
     isJapanese,
   };
 }
@@ -463,7 +470,7 @@ app.post("/api/book/lookup", async (req, res) => {
     }
 
     const normalized = normalizeIsbn(identifier);
-    const lookupKey = normalized.isbn13 || normalized.isbn10 || normalized.cleaned;
+    const lookupKey = normalized.isbn13 || normalized.isbn10 || normalized.issn || normalized.cleaned;
 
     if (!forceCrawl && serverConfig.cacheEnabled && bookCache.has(lookupKey)) {
       requestMetrics.cacheHits++;
@@ -474,8 +481,28 @@ app.post("/api/book/lookup", async (req, res) => {
       });
     }
 
-    // 1. Check curated benchmark catalog registry
-    const known = findKnownBibRecord(identifier, normalized.isbn13 || normalized.isbn10 || "");
+    // 1. Check custom user-added & JSON5 imported database records
+    const customMatch =
+      customRecords.get(identifier) ||
+      customRecords.get(lookupKey) ||
+      (normalized.isbn13 && customRecords.get(normalized.isbn13)) ||
+      (normalized.isbn10 && customRecords.get(normalized.isbn10)) ||
+      (normalized.issn && customRecords.get(normalized.issn)) ||
+      (normalized.digitsOnly && customRecords.get(normalized.digitsOnly));
+
+    if (customMatch) {
+      if (serverConfig.cacheEnabled && lookupKey) {
+        bookCache.set(lookupKey, customMatch);
+      }
+      return res.json({
+        success: true,
+        source: "custom_database",
+        data: customMatch,
+      });
+    }
+
+    // 2. Check curated benchmark catalog registry
+    const known = findKnownBibRecord(identifier, normalized.isbn13 || normalized.isbn10 || normalized.issn || "");
     if (known) {
       if (serverConfig.cacheEnabled && lookupKey) {
         bookCache.set(lookupKey, known);
@@ -538,6 +565,72 @@ sourcesFound, crossReferencedEditions, citations.`;
     const fallbackData = await resolveFromLiveCatalogs(req.body?.identifier || "", normalized);
     return res.json({ success: true, data: fallbackData, source: "live_catalogs_fallback" });
   }
+});
+
+// Custom Bibliographic Record Registration & Batch Ingestion
+app.post("/api/book/custom", (req, res) => {
+  try {
+    const { record, records } = req.body;
+    const incoming: any[] = Array.isArray(records) ? records : record ? [record] : [];
+    if (incoming.length === 0) {
+      return res.status(400).json({ error: "No records provided" });
+    }
+
+    let indexedCount = 0;
+    for (const rec of incoming) {
+      if (!rec || !rec.title) continue;
+      const recId = rec.id || `custom-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+      rec.id = recId;
+
+      // Index by ID
+      customRecords.set(recId, rec);
+
+      // Index by ISBN13, ISBN10, ISSN, C-Code if present
+      if (rec.identifiers?.isbn13) {
+        customRecords.set(rec.identifiers.isbn13.replace(/[^0-9X]/gi, ""), rec);
+      }
+      if (rec.identifiers?.isbn10) {
+        customRecords.set(rec.identifiers.isbn10.replace(/[^0-9X]/gi, ""), rec);
+      }
+      if (rec.identifiers?.issn) {
+        const cleanIssn = rec.identifiers.issn.replace(/[^0-9X]/gi, "");
+        customRecords.set(cleanIssn, rec);
+        customRecords.set(rec.identifiers.issn, rec);
+      }
+      if (rec.identifiers?.japaneseIsbn4) {
+        customRecords.set(rec.identifiers.japaneseIsbn4, rec);
+      }
+
+      // Also prime bookCache so lookup hits immediately
+      const primaryKey = rec.identifiers?.isbn13 || rec.identifiers?.isbn10 || rec.identifiers?.issn || recId;
+      bookCache.set(primaryKey, rec);
+      indexedCount++;
+    }
+
+    return res.json({
+      success: true,
+      indexedCount,
+      totalCustomRecords: customRecords.size,
+      message: `Successfully indexed ${indexedCount} custom bibliographic record(s) into database.`,
+    });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message || "Failed to index custom records" });
+  }
+});
+
+app.get("/api/book/custom", (req, res) => {
+  // Deduplicate records by unique id
+  const uniqueRecords = new Map<string, any>();
+  for (const record of customRecords.values()) {
+    if (record && record.id) {
+      uniqueRecords.set(record.id, record);
+    }
+  }
+  return res.json({
+    success: true,
+    count: uniqueRecords.size,
+    records: Array.from(uniqueRecords.values()),
+  });
 });
 
 // Control Panel Settings & Metrics

@@ -15,6 +15,7 @@ import {
   ChevronDown,
   Layers,
   Sparkles,
+  PlusCircle,
 } from "lucide-react";
 import {
   exportBookData,
@@ -27,6 +28,7 @@ interface BatchHistoryViewProps {
   history: BookRecord[];
   onSelectBook: (book: BookRecord) => void;
   onClearHistory: () => void;
+  onOpenCustomModal?: () => void;
   lang?: UiLanguage;
 }
 
@@ -34,6 +36,7 @@ export const BatchHistoryView: React.FC<BatchHistoryViewProps> = ({
   history,
   onSelectBook,
   onClearHistory,
+  onOpenCustomModal,
   lang = "en",
 }) => {
   const t = TRANSLATIONS[lang];
@@ -250,6 +253,17 @@ export const BatchHistoryView: React.FC<BatchHistoryViewProps> = ({
               </div>
             )}
           </div>
+
+          {onOpenCustomModal && (
+            <button
+              onClick={onOpenCustomModal}
+              className="px-3 py-2 bg-emerald-950/70 hover:bg-emerald-900/70 text-emerald-300 border border-emerald-800/80 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm active:scale-95 cursor-pointer"
+              title="Add custom record or batch import via JSON5"
+            >
+              <PlusCircle className="w-4 h-4 text-emerald-400" />
+              <span>{t.btnAddCustomRecord}</span>
+            </button>
+          )}
 
           {history.length > 0 && (
             <button

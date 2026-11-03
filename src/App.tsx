@@ -16,6 +16,7 @@ import {
   Globe2,
   Compass,
   Radio,
+  PlusCircle,
 } from "lucide-react";
 import { ScannerModal } from "./components/ScannerModal";
 import { BookDetailView } from "./components/BookDetailView";
@@ -25,6 +26,11 @@ import { BatchHistoryView } from "./components/BatchHistoryView";
 import { ControlPanelModal } from "./components/ControlPanelModal";
 import { ArabicDeweyCalculatorModal } from "./components/ArabicDeweyCalculatorModal";
 import { SruCatalogsModal } from "./components/SruCatalogsModal";
+import { CustomRecordModal } from "./components/CustomRecordModal";
+import {
+  loadCustomRecordsFromLocalStorage,
+  saveCustomRecordsToLocalStorage,
+} from "./utils/customRecordUtils";
 import { BookRecord, OcrResult } from "./types/book";
 import { parseBookIdentifier } from "./utils/isbnUtils";
 import {
@@ -210,10 +216,25 @@ export default function App() {
   const [controlPanelOpen, setControlPanelOpen] = useState<boolean>(false);
   const [arabicDeweyModalOpen, setArabicDeweyModalOpen] = useState<boolean>(false);
   const [sruModalOpen, setSruModalOpen] = useState<boolean>(false);
+  const [customRecordModalOpen, setCustomRecordModalOpen] = useState<boolean>(false);
   const [statusNotification, setStatusNotification] = useState<{
     type: "info" | "success" | "error";
     message: string;
   } | null>(null);
+
+  // Sync custom records from localStorage to backend custom database
+  useEffect(() => {
+    try {
+      const customRecs = loadCustomRecordsFromLocalStorage();
+      if (customRecs.length > 0) {
+        fetch("/api/book/custom", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ records: customRecs }),
+        }).catch((e) => console.warn("Background custom sync notice:", e));
+      }
+    } catch (_) {}
+  }, []);
 
   const [currentLang, setCurrentLang] = useState<UiLanguage>(() => {
     try {
@@ -262,6 +283,36 @@ export default function App() {
     setCurrentBook(updated);
     setScanHistory((prev) => [updated, ...prev.filter((b) => b.id !== updated.id)]);
     notify(`Arabic Dewey set to ${arabicDewey} (${arabicDeweyName})!`, "success");
+  };
+
+  const handleCustomRecordSaved = (record: BookRecord) => {
+    setCurrentBook(record);
+    setScanHistory((prev) => [record, ...prev.filter((b) => b.id !== record.id)]);
+    const existing = loadCustomRecordsFromLocalStorage();
+    saveCustomRecordsToLocalStorage([record, ...existing.filter((b) => b.id !== record.id)]);
+    setActiveTab("book");
+    notify((currentLang === "ar" ? "تم تسجيل وفهرسة: " : "Saved & Indexed: ") + `"${record.title}"`, "success");
+  };
+
+  const handleBatchImported = (records: BookRecord[]) => {
+    if (records.length === 0) return;
+    setCurrentBook(records[0]);
+    setScanHistory((prev) => {
+      const incomingIds = new Set(records.map((r) => r.id));
+      return [...records, ...prev.filter((b) => !incomingIds.has(b.id))];
+    });
+    const existing = loadCustomRecordsFromLocalStorage();
+    const incomingIds = new Set(records.map((r) => r.id));
+    saveCustomRecordsToLocalStorage([...records, ...existing.filter((b) => !incomingIds.has(b.id))]);
+    setActiveTab("history");
+    notify(
+      currentLang === "ja"
+        ? `${records.length} 件のレコードを一括インポートしました！`
+        : currentLang === "ar"
+        ? `تم استيراد ${records.length} سجلاً بنجاح إلى قاعدة البيانات!`
+        : `Successfully imported ${records.length} records into database!`,
+      "success"
+    );
   };
 
   // Perform search / crawl for a book identifier
@@ -580,6 +631,16 @@ export default function App() {
             </button>
           </nav>
 
+          {/* Custom Record & JSON5 Import Trigger */}
+          <button
+            onClick={() => setCustomRecordModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950/70 hover:bg-indigo-900/70 text-indigo-300 border border-indigo-800/80 text-xs font-semibold transition-all shadow-sm active:scale-95 cursor-pointer"
+            title="Add custom book or magazine, or batch-import via JSON5"
+          >
+            <PlusCircle className="w-4 h-4 text-indigo-400" />
+            <span className="hidden sm:inline">{t.btnAddCustomRecord}</span>
+          </button>
+
           {/* Arabic Dewey 10 Calculator Trigger */}
           <button
             onClick={() => setArabicDeweyModalOpen(true)}
@@ -645,6 +706,7 @@ export default function App() {
               lang={currentLang}
               onScanResult={handleIdentifierSubmit}
               isProcessing={isCrawling}
+              onOpenCustomModal={() => setCustomRecordModalOpen(true)}
             />
 
             {/* Quick preview of currently loaded book under scanner */}
@@ -737,9 +799,19 @@ export default function App() {
               setActiveTab("book");
             }}
             onClearHistory={() => setScanHistory([])}
+            onOpenCustomModal={() => setCustomRecordModalOpen(true)}
           />
         )}
       </main>
+
+      {/* Custom Bibliographic Record & JSON5 Batch Importer Modal */}
+      <CustomRecordModal
+        isOpen={customRecordModalOpen}
+        onClose={() => setCustomRecordModalOpen(false)}
+        onRecordSaved={handleCustomRecordSaved}
+        onBatchImported={handleBatchImported}
+        lang={currentLang}
+      />
 
       {/* Arabic Dewey 10 Converter & Calculator Modal */}
       <ArabicDeweyCalculatorModal

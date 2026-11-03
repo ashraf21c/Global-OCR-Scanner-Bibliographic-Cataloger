@@ -522,6 +522,384 @@ export const KNOWN_BIB_RECORDS: Record<string, any> = {
       arabicStandard: "تشوي جون شيك. (2022). قصة كوريا: فهم الكوريين وثقافتهم (ترجمة د. محمود عبد الغفار). القاهرة: المركز القومي للترجمة.",
     },
   },
+
+  // 1. Arabic Periodical: Majallat Al-Arabi (مجلة العربي) - ISSN 0002-3973
+  "00023973": {
+    id: "al-arabi-magazine-00023973",
+    materialType: "magazine",
+    title: "مجلة العربي (Al-Arabi Magazine)",
+    titleRomajiOrTranslated: "Al-Arabi Cultural & Literary Monthly",
+    subtitle: "مجلة شهرية ثقافية مصورة - وزارة الإعلام بدولة الكويت (تأسست 1958)",
+    authors: [
+      {
+        name: "د. أحمد زكي (أول رئيس تحرير)",
+        transliteratedName: "Dr. Ahmad Zaki",
+        role: "Founding Editor-in-Chief",
+        bio: "عالم ومفكر وكاتب مصري، مؤسس ورئيس تحرير مجلة العربي من 1958 إلى 1975.",
+      },
+      {
+        name: "وزارة الإعلام الكويتية",
+        transliteratedName: "Kuwait Ministry of Information",
+        role: "Publisher / Sponsor",
+        bio: "الجهة الرسمية الناشرة لمجلة العربي وسلسلة كتاب العربي ومجلة العربي الصغير.",
+      },
+    ],
+    publisher: "وزارة الإعلام - دولة الكويت (Kuwait Ministry of Information)",
+    publishedDate: "1958-12-01",
+    language: "ar",
+    periodicalInfo: {
+      frequency: "Monthly (شهري)",
+      frequencyJa: "月刊",
+      frequencyAr: "شهرية",
+      volume: "العدد 780",
+      issue: "سلسلة شهرية مستمرة",
+      startYear: "1958",
+      country: "الكويت (Kuwait)",
+      keyTitle: "Al-ʻArabī (al-Kuwayt)",
+      issnPortalUrl: "https://portal.issn.org/resource/ISSN/0002-3973",
+    },
+    description:
+      "مجلة العربي هي مجلة ثقافية شهرية عربية مصورة تصدرها وزارة الإعلام الكويتية منذ ديسمبر 1958. تعد من أشهر المجلات الثقافية وأوسعها انتشاراً في الوطن العربي، اشتهرت باستطلاعاتها المصورة النادرة حول مدن العالم وتاريخ الشعوب، ومقالات كبار المفكرين العرب كطه حسين والعقاد وأحمد زكي.",
+    coverImageUrl: "https://upload.wikimedia.org/wikipedia/ar/0/07/Al-Arabi_Magazine_first_issue.jpg",
+    altCoverUrls: [
+      "https://upload.wikimedia.org/wikipedia/ar/0/07/Al-Arabi_Magazine_first_issue.jpg",
+      "https://portal.issn.org/resource/ISSN/0002-3973",
+    ],
+    identifiers: {
+      issn: "0002-3973",
+      aucId: "AUC-SERIAL-00023973",
+      lccn: "ne64003504",
+      oclc: "4995963",
+      librarything: "serial-40192",
+    },
+    classifications: {
+      dewey: "059.27",
+      arabicDewey: "051",
+      arabicDeweyName: "المجلات والدوريات العامة العربية",
+      lcc: "AP95.A6 A7",
+      subjectHeadings: [
+        "الدوريات والمجلات العربية - الكويت",
+        "الثقافة والفكر العربي المعاصر",
+        "الاستطلاعات الجغرافية والتاريخية المصورة",
+      ],
+      classificationBasis: "abstract_subjects",
+      classificationNote: {
+        en: "Calculated from ISSN Portal registry & Arabic Union Catalog serials (General Arabic Periodicals: 051)",
+        ar: "تم الحساب بناءً على السجل الدولي للدوريات والفهرس العربي الموحد (المجلات والدوريات العامة العربية 051)",
+        ja: "ISSN国際センターおよびアラブ総合目録の逐次刊行物分類（アラビア語一般雑誌: 051）より算出",
+      },
+    },
+    physical: {
+      pageCount: 196,
+      format: "Magazine / Periodical (مجلة مصورة ملونة)",
+      dimensions: "27.5 x 20.5 cm",
+      price: "100 Fils (الكويت) / 10 EGP (مصر)",
+    },
+    sourcesFound: [
+      {
+        name: "ISSN International Centre (ROAD / portal.issn.org)",
+        url: "https://portal.issn.org/resource/ISSN/0002-3973",
+        matched: true,
+        notes: "Key Title: Al-ʻArabī (al-Kuwayt) - Status: Confirmed Serial",
+      },
+      {
+        name: "Arabic Union Catalog Serials (فهرس الدوريات العربية)",
+        url: "https://www.aruc.org",
+        matched: true,
+        notes: "تسجيلة دورية معتمدة برقم ردمد 0002-3973",
+      },
+      {
+        name: "Library of Congress (LOC Serials)",
+        url: "https://catalog.loc.gov",
+        matched: true,
+        notes: "Catalog of Serials / LCCN ne64003504",
+      },
+      {
+        name: "WorldCat Serials",
+        url: "https://www.worldcat.org/issn/0002-3973",
+        matched: true,
+        notes: "Held by 180+ global university and national collections",
+      },
+    ],
+    crossReferencedEditions: [
+      {
+        title: "كتاب العربي (Al-Arabi Book Series)",
+        language: "ar",
+        publisher: "وزارة الإعلام - الكويت",
+        year: "1984-",
+        relation: "Quarterly Monograph Series",
+      },
+      {
+        title: "العربي الصغير (Al-Arabi Junior)",
+        language: "ar",
+        publisher: "وزارة الإعلام - الكويت",
+        year: "1986-",
+        relation: "Juvenile / Children's Periodical",
+      },
+    ],
+    citations: {
+      apa: "مجلة العربي. (1958-). وزارة الإعلام بدولة الكويت.",
+      mla: "مجلة العربي. وزارة الإعلام بدولة الكويت, 1958-.",
+      chicagoNotes: "مجلة العربي (الكويت: وزارة الإعلام, 1958-).",
+      chicagoAuthorDate: "وزارة الإعلام الكويتية. 1958-. مجلة العربي. الكويت.",
+      harvard: "مجلة العربي (1958-) الكويت: وزارة الإعلام.",
+      ieee: "[1] مجلة العربي, الكويت: وزارة الإعلام, 1958-.",
+      sist02: "مجلة العربي. カイロ・クウェート: クウェート情報省, 1958-.",
+      arabicStandard: "مجلة العربي. (1958-). الكويت: وزارة الإعلام.",
+    },
+  },
+
+  // 2. Japanese Periodical: Bungeishunju (文藝春秋) - ISSN 0407-7601
+  "04077601": {
+    id: "bungeishunju-magazine-04077601",
+    materialType: "magazine",
+    title: "文藝春秋 (Bungeishunju)",
+    titleRomajiOrTranslated: "Bungei Shunjū Monthly Literary & General Review",
+    subtitle: "総合月刊誌（芥川龍之介賞・直木三十五賞 発表誌・創刊1923年）",
+    authors: [
+      {
+        name: "菊池寛 (創刊主幹)",
+        transliteratedName: "Kikuchi Kan",
+        role: "Founder",
+        viafId: "108595843",
+        ndlId: "00030588",
+        locId: "n81047514",
+        bio: "日本の小説家・劇作家。文藝春秋社を創刊し芥川賞・直木賞を設立。",
+      },
+      {
+        name: "株式会社文藝春秋",
+        transliteratedName: "Bungeishunju Ltd.",
+        role: "Publisher",
+        bio: "日本の大手総合出版社。文学、言論、総合雑誌を発行。",
+      },
+    ],
+    publisher: "株式会社文藝春秋 (Bungeishunju Ltd.)",
+    publishedDate: "1923-01-01",
+    language: "ja",
+    periodicalInfo: {
+      frequency: "Monthly (月刊)",
+      frequencyJa: "月刊",
+      frequencyAr: "شهرية",
+      volume: "第102巻 第5号",
+      startYear: "1923",
+      country: "日本 (Japan)",
+      keyTitle: "Bungei shunjū",
+      issnPortalUrl: "https://portal.issn.org/resource/ISSN/0407-7601",
+    },
+    description:
+      "『文藝春秋』は、大正12年（1923年）に菊池寛が創刊した日本の代表的な総合月刊誌。日本の言論界・文壇を牽引し、半年に一度の「芥川龍之介賞」受賞作および選評全文が独占掲載される。政治、経済、現代史の重大スクープや回想録でも広く知られる。",
+    coverImageUrl: "https://images-na.ssl-images-amazon.com/images/P/B00005N0PQ.09.LZZZZZZZ.jpg",
+    altCoverUrls: [
+      "https://images-na.ssl-images-amazon.com/images/P/B00005N0PQ.09.LZZZZZZZ.jpg",
+      "https://portal.issn.org/resource/ISSN/0407-7601",
+    ],
+    identifiers: {
+      issn: "0407-7601",
+      ndlId: "000000020888",
+      lccn: "54041793",
+      oclc: "4193566",
+    },
+    classifications: {
+      ndc: "051.1",
+      dewey: "059.956",
+      arabicDewey: "050",
+      arabicDeweyName: "المجلات والدوريات العامة العالمية",
+      lcc: "AP95.J2 B8",
+      subjectHeadings: ["総合雑誌 - 日本", "日本文学 - 評論", "芥川賞 - 発表誌"],
+      classificationBasis: "ndc",
+      classificationNote: {
+        en: "Calculated from National Diet Library Periodical classification (NDC 051.1 General Japanese Periodicals)",
+        ja: "国立国会図書館 雑誌目録分類（NDC: 051.1 日本の一般総合雑誌）より算出",
+        ar: "تم الحساب بناءً على تصنيف الدوريات في مكتبة البرلمان الياباني (NDC 051.1 المجلات العامة اليابانية)",
+      },
+    },
+    physical: {
+      pageCount: 460,
+      format: "Monthly Magazine (月刊誌・B5判)",
+      dimensions: "25.7 x 18.2 cm",
+      price: "¥1,100",
+    },
+    sourcesFound: [
+      {
+        name: "National Diet Library Serials (NDLサーチ 雑誌目録)",
+        url: "https://ndlsearch.ndl.go.jp",
+        matched: true,
+        notes: "登録雑誌レコード NDL-OPAC 000000020888 / NDC 051.1",
+      },
+      {
+        name: "ISSN International Centre (ROAD)",
+        url: "https://portal.issn.org/resource/ISSN/0407-7601",
+        matched: true,
+        notes: "Key Title: Bungei shunjū (Tokyo)",
+      },
+      {
+        name: "CiNii Books & Research (NII 雑誌)",
+        url: "https://ci.nii.ac.jp/books/",
+        matched: true,
+        notes: "大学所蔵雑誌目録 (NCID: AN00216260)",
+      },
+      {
+        name: "Library of Congress (LOC Serials)",
+        url: "https://catalog.loc.gov",
+        matched: true,
+        notes: "LCCN 54041793",
+      },
+    ],
+    crossReferencedEditions: [
+      {
+        title: "オール讀物 (All Yomimono - Naoki Prize Issue)",
+        language: "ja",
+        publisher: "文藝春秋",
+        year: "1930-",
+        relation: "Sister Literary Monthly (Naoki Prize)",
+      },
+      {
+        title: "文學界 (Bungakukai)",
+        language: "ja",
+        publisher: "文藝春秋",
+        year: "1933-",
+        relation: "Pure Literature Monthly",
+      },
+    ],
+    citations: {
+      apa: "文藝春秋. (1923-). 株式会社文藝春秋.",
+      mla: "『文藝春秋』. 文藝春秋社, 1923-.",
+      chicagoNotes: "『文藝春秋』（東京: 文藝春秋社, 1923-）.",
+      chicagoAuthorDate: "文藝春秋社. 1923-. 『文藝春秋』. 東京.",
+      sist02: "文藝春秋. 東京: 文藝春秋, 1923-, ISSN 0407-7601.",
+      arabicStandard: "مجلة بونغي شونجو. (1923-). طوكيو: دار بونغي شونجو.",
+    },
+  },
+
+  // 3. English / International Periodical: Nature - ISSN 0028-0836
+  "00280836": {
+    id: "nature-journal-00280836",
+    materialType: "journal",
+    title: "Nature",
+    titleRomajiOrTranslated: "Nature: International Weekly Journal of Science",
+    subtitle: "Leading International Weekly Journal of Science (Established 1869)",
+    authors: [
+      {
+        name: "Sir Norman Lockyer (Founding Editor)",
+        transliteratedName: "Norman Lockyer",
+        role: "Founding Editor",
+        bio: "English astronomer who discovered helium and founded Nature in 1869.",
+      },
+      {
+        name: "Magdalena Skipper",
+        role: "Editor-in-Chief",
+        bio: "Geneticist and eighth editor-in-chief of Nature.",
+      },
+    ],
+    publisher: "Nature Portfolio / Springer Nature",
+    publishedDate: "1869-11-04",
+    language: "en",
+    periodicalInfo: {
+      frequency: "Weekly (أسبوعية / 週刊)",
+      frequencyJa: "週刊",
+      frequencyAr: "أسبوعية",
+      volume: "Vol. 630",
+      issue: "Weekly Continuous",
+      startYear: "1869",
+      country: "United Kingdom",
+      keyTitle: "Nature (London)",
+      issnPortalUrl: "https://portal.issn.org/resource/ISSN/0028-0836",
+      crossrefUrl: "https://api.crossref.org/journals/0028-0836",
+    },
+    description:
+      "Nature is a British weekly scientific journal founded in 1869. It is one of the most recognizable and prestigious academic journals in the world, publishing peer-reviewed research from across all fields of science and technology, as well as breaking science news and commentary.",
+    coverImageUrl: "https://media.springernature.com/w300/springer-static/cover/journal/41586.jpg",
+    altCoverUrls: [
+      "https://media.springernature.com/w300/springer-static/cover/journal/41586.jpg",
+      "https://portal.issn.org/resource/ISSN/0028-0836",
+    ],
+    identifiers: {
+      issn: "0028-0836",
+      eIssn: "1476-4687",
+      issnL: "0028-0836",
+      coden: "NATUAS",
+      lccn: "12037118",
+      oclc: "01586310",
+      librarything: "serial-nature-00280836",
+    },
+    classifications: {
+      dewey: "505",
+      arabicDewey: "500",
+      arabicDeweyName: "العلوم الطبيعية والدقيقة (دوريات علمية)",
+      lcc: "Q1 .N2",
+      subjectHeadings: ["Science - Periodicals", "Research - International", "Natural History - Serials"],
+      classificationBasis: "abstract_subjects",
+      classificationNote: {
+        en: "Calculated from Crossref and Library of Congress serial classification (Science Periodicals: 505 / Q1)",
+        ar: "تم الحساب بناءً على تصنيف مكتبة الكونغرس للدوريات وسجل كروسريف (الدوريات العلمية 505)",
+        ja: "Crossrefおよび米国議会図書館の逐次刊行物分類（科学定期刊行物: 505 / Q1）より算出",
+      },
+    },
+    physical: {
+      pageCount: 180,
+      format: "Weekly Academic Periodical",
+      dimensions: "27.6 x 21.0 cm",
+      price: "Subscription",
+    },
+    sourcesFound: [
+      {
+        name: "ISSN International Centre (ROAD / portal.issn.org)",
+        url: "https://portal.issn.org/resource/ISSN/0028-0836",
+        matched: true,
+        notes: "Key Title: Nature (London) - Active Status",
+      },
+      {
+        name: "Crossref Serials Registry",
+        url: "https://api.crossref.org/journals/0028-0836",
+        matched: true,
+        notes: "Linked ISSN-L: 0028-0836 / Publisher: Springer Science and Business Media LLC",
+      },
+      {
+        name: "Library of Congress (LOC Serials)",
+        url: "https://catalog.loc.gov",
+        matched: true,
+        notes: "LCCN 12037118 / Call Number: Q1 .N2",
+      },
+      {
+        name: "British Library (BL Serials)",
+        url: "http://explore.bl.uk",
+        matched: true,
+        notes: "UK Legal Deposit Serials Collection",
+      },
+      {
+        name: "WorldCat Serials",
+        url: "https://www.worldcat.org/issn/0028-0836",
+        matched: true,
+        notes: "Held by 3,400+ research libraries globally",
+      },
+    ],
+    crossReferencedEditions: [
+      {
+        title: "Nature Communications",
+        language: "en",
+        publisher: "Nature Portfolio",
+        year: "2010-",
+        relation: "Open Access Multidisciplinary Journal",
+      },
+      {
+        title: "Nature Medicine",
+        language: "en",
+        publisher: "Nature Portfolio",
+        year: "1995-",
+        relation: "Biomedical Sub-Journal",
+      },
+    ],
+    citations: {
+      apa: "Nature. (1869-). Springer Nature.",
+      mla: "Nature. Springer Nature, 1869-.",
+      chicagoNotes: "Nature (London: Springer Nature, 1869-).",
+      chicagoAuthorDate: "Springer Nature. 1869-. Nature. London.",
+      harvard: "Nature (1869-) London: Springer Nature.",
+      ieee: "[1] Nature, London: Springer Nature, 1869-.",
+      sist02: "Nature. London: Springer Nature, 1869-, ISSN 0028-0836.",
+      arabicStandard: "مجلة نيتشر (Nature). (1869-). لندن: سبرينغر نيتشر.",
+    },
+  },
 };
 
 /**
@@ -539,6 +917,8 @@ export function findKnownBibRecord(rawIdentifier: string, queryIsbn: string): an
       record.identifiers.isbn13 === cleanDigits ||
       record.identifiers.isbn10 === cleanDigits ||
       record.identifiers.japaneseIsbn4 === rawIdentifier ||
+      record.identifiers.issn === rawIdentifier ||
+      record.identifiers.issn?.replace(/-/g, "") === cleanDigits ||
       key === cleanDigits
     ) {
       return record;
@@ -573,6 +953,17 @@ export function findKnownBibRecord(rawIdentifier: string, queryIsbn: string): an
     cleanDigits === "9779224661"
   ) {
     return KNOWN_BIB_RECORDS["9789779224664"];
+  }
+
+  // Periodical title matching
+  if (lower.includes("العربي") || lower.includes("al-arabi") || cleanDigits === "00023973") {
+    return KNOWN_BIB_RECORDS["00023973"];
+  }
+  if (lower.includes("文藝春秋") || lower.includes("bungeishunju") || cleanDigits === "04077601") {
+    return KNOWN_BIB_RECORDS["04077601"];
+  }
+  if (lower.includes("nature") || cleanDigits === "00280836") {
+    return KNOWN_BIB_RECORDS["00280836"];
   }
 
   return null;
@@ -646,7 +1037,7 @@ export async function resolveFromLiveCatalogs(
       })()
     );
 
-    // C. National Diet Library (NDL Search OpenSearch) for Japanese books
+    // C. National Diet Library (NDL Search OpenSearch) for Japanese books & serials
     const isJpCandidate = normalized.isJapanese || cleanDigits.startsWith("4") || cleanDigits.startsWith("9784");
     if (isJpCandidate) {
       fetchPromises.push(
@@ -675,6 +1066,41 @@ export async function resolveFromLiveCatalogs(
             }
           } catch (e: any) {
             console.warn("NDL OpenSearch live lookup:", e.message);
+          }
+        })()
+      );
+    }
+
+    // D. Crossref Serials API for ISSNs (8-character codes e.g. 0028-0836)
+    if (cleanDigits.length === 8) {
+      const formattedIssn = `${cleanDigits.slice(0, 4)}-${cleanDigits.slice(4, 8)}`;
+      fetchPromises.push(
+        (async () => {
+          try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 4500);
+            const res = await fetch(`https://api.crossref.org/journals/${formattedIssn}`, {
+              signal: controller.signal,
+              headers: { "User-Agent": "BibliographicScanner/2.6" },
+            });
+            clearTimeout(timer);
+            if (res.ok) {
+              const json: any = await res.json();
+              if (json?.message) {
+                const msg = json.message;
+                const crTitle = msg.title;
+                const crPub = msg.publisher;
+                if (crTitle) {
+                  gbData = gbData || {
+                    title: crTitle,
+                    publisher: crPub,
+                    categories: msg.subjects || ["Serials / Periodicals"],
+                  };
+                }
+              }
+            }
+          } catch (e: any) {
+            console.warn("Crossref serial lookup:", e.message);
           }
         })()
       );

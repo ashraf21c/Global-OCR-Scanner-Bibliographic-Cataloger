@@ -26,6 +26,7 @@ import {
   Search,
   Image as ImageIcon,
   Check,
+  Newspaper,
 } from "lucide-react";
 import { downloadCoverImage } from "../utils/exportUtils";
 import { formatIsbnHyphens, decodeCCode } from "../utils/isbnUtils";
@@ -126,14 +127,40 @@ export const BookDetailView: React.FC<BookDetailViewProps> = ({
     <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden mb-8 text-slate-100">
       {/* Top action bar */}
       <div className="bg-slate-950 px-6 py-3.5 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
-            <Book className="w-3.5 h-3.5" />
-            {t.bibRecordBadge}
-          </span>
-          <span className="text-xs text-slate-400 font-mono">
-            {formatIsbnHyphens(primaryIsbn)}
-          </span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {book.materialType === "magazine" || book.materialType === "journal" || book.materialType === "serial" || book.identifiers.issn ? (
+            <span className="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+              <Newspaper className="w-3.5 h-3.5 text-emerald-400" />
+              {book.materialType === "magazine"
+                ? t.materialTypeMagazine
+                : book.materialType === "journal"
+                ? t.materialTypeJournal
+                : t.materialTypeSerial}
+            </span>
+          ) : (
+            <span className="px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5">
+              <Book className="w-3.5 h-3.5" />
+              {t.bibRecordBadge}
+            </span>
+          )}
+
+          {book.identifiers.issn ? (
+            <a
+              href={`https://portal.issn.org/resource/ISSN/${book.identifiers.issn}`}
+              target="_blank"
+              rel="noreferrer"
+              className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-teal-950/70 text-teal-300 border border-teal-800/60 hover:bg-teal-900/80 transition-colors flex items-center gap-1"
+              title={t.issnPortalRegistry}
+            >
+              <span>ISSN {book.identifiers.issn}</span>
+              <ExternalLink className="w-2.5 h-2.5 rtl:rotate-180" />
+            </a>
+          ) : (
+            <span className="text-xs text-slate-400 font-mono">
+              {formatIsbnHyphens(primaryIsbn)}
+            </span>
+          )}
+
           {book.identifiers.japaneseIsbn4 && (
             <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-rose-950/60 text-rose-300 border border-rose-800/60">
               {t.japaneseIsbn4Badge}: {book.identifiers.japaneseIsbn4}
@@ -421,6 +448,68 @@ export const BookDetailView: React.FC<BookDetailViewProps> = ({
           {book.description && (
             <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed max-h-36 overflow-y-auto">
               <p>{book.description}</p>
+            </div>
+          )}
+
+          {/* Periodical & Magazine Intelligence Details */}
+          {(book.periodicalInfo || book.identifiers.issn) && (
+            <div className="bg-gradient-to-r from-teal-950/40 to-slate-900 p-3.5 rounded-xl border border-teal-800/50 text-xs flex flex-col gap-2">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="font-bold text-teal-300 flex items-center gap-1.5">
+                  <Newspaper className="w-4 h-4 text-teal-400" />
+                  {t.periodicalDetailsTitle}
+                </span>
+                {book.identifiers.issn && (
+                  <a
+                    href={`https://portal.issn.org/resource/ISSN/${book.identifiers.issn}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[11px] font-semibold text-teal-300 hover:text-teal-200 bg-teal-950/80 px-2.5 py-1 rounded-lg border border-teal-700/60 flex items-center gap-1"
+                  >
+                    <span>{t.issnPortalRegistry}</span>
+                    <ExternalLink className="w-3 h-3 rtl:rotate-180" />
+                  </a>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px]">
+                {book.periodicalInfo?.frequency && (
+                  <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <span className="text-slate-400 block">{t.publicationFrequency}:</span>
+                    <span className="font-semibold text-teal-200">
+                      {lang === "ja"
+                        ? book.periodicalInfo.frequencyJa || book.periodicalInfo.frequency
+                        : lang === "ar"
+                        ? book.periodicalInfo.frequencyAr || book.periodicalInfo.frequency
+                        : book.periodicalInfo.frequency}
+                    </span>
+                  </div>
+                )}
+                {book.periodicalInfo?.volume && (
+                  <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <span className="text-slate-400 block">Issue / Volume:</span>
+                    <span className="font-semibold text-slate-200">
+                      {book.periodicalInfo.volume}
+                    </span>
+                  </div>
+                )}
+                {book.periodicalInfo?.startYear && (
+                  <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <span className="text-slate-400 block">{t.foundedYearLabel}:</span>
+                    <span className="font-semibold text-slate-200">
+                      {book.periodicalInfo.startYear}
+                    </span>
+                  </div>
+                )}
+                {book.periodicalInfo?.country && (
+                  <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <span className="text-slate-400 block">{t.countryOfOriginLabel}:</span>
+                    <span className="font-semibold text-slate-200">
+                      {book.periodicalInfo.country}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

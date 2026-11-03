@@ -52,9 +52,19 @@ export interface TranslationDict {
   secondaryCode: string;
   confidence: string;
 
-  // Book Detail View
+  // Book & Periodical Detail View
   bibRecordBadge: string;
   japaneseIsbn4Badge: string;
+  materialTypeBook: string;
+  materialTypeMagazine: string;
+  materialTypeJournal: string;
+  materialTypeSerial: string;
+  issnBadge: string;
+  publicationFrequency: string;
+  issnPortalRegistry: string;
+  periodicalDetailsTitle: string;
+  foundedYearLabel: string;
+  countryOfOriginLabel: string;
   btnCitationsQuick: string;
   btnExportQuick: string;
   btnSpineQuick: string;
@@ -169,6 +179,44 @@ export interface TranslationDict {
   cpSaveBtn: string;
   cpResetBtn: string;
 
+  // Custom Record & JSON5 Manager
+  btnAddCustomRecord: string;
+  customModalTitle: string;
+  customModalSubtitle: string;
+  tabWebForm: string;
+  tabJson5Import: string;
+  tabCodeGuide: string;
+  customFormTitle: string;
+  customFormSubtitle: string;
+  customFieldTitle: string;
+  customFieldSubtitle: string;
+  customFieldPublisher: string;
+  customFieldYear: string;
+  customFieldLanguage: string;
+  customFieldMaterialType: string;
+  customFieldAuthors: string;
+  customFieldIsbn13: string;
+  customFieldIsbn10: string;
+  customFieldIssn: string;
+  customFieldNdc: string;
+  customFieldDewey: string;
+  customFieldArabicDewey: string;
+  customFieldLcc: string;
+  customFieldCoverUrl: string;
+  customFieldDescription: string;
+  customFieldPages: string;
+  customFieldPrice: string;
+  customSaveBtn: string;
+  customResetBtn: string;
+  loadJson5SampleBtn: string;
+  uploadJson5Btn: string;
+  importJson5Btn: string;
+  json5SyntaxHelp: string;
+  codeGuideTitle: string;
+  codeGuideSubtitle: string;
+  codeGuideFileLabel: string;
+  codeGuideInstructions: string;
+
   // Notifications
   notifyLookingUp: string;
   notifyRecordLoaded: string;
@@ -224,6 +272,16 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
 
     bibRecordBadge: "Bibliographic Record",
     japaneseIsbn4Badge: "🇯🇵 Japanese ISBN4",
+    materialTypeBook: "Book (Monograph)",
+    materialTypeMagazine: "Magazine / Cultural Periodical",
+    materialTypeJournal: "Academic Journal / Serial",
+    materialTypeSerial: "Serial Publication",
+    issnBadge: "ISSN Registered",
+    publicationFrequency: "Publication Frequency",
+    issnPortalRegistry: "ISSN International Centre (ROAD)",
+    periodicalDetailsTitle: "Periodical & Serial Intelligence",
+    foundedYearLabel: "Established / First Issue",
+    countryOfOriginLabel: "Country of Publication",
     btnCitationsQuick: "Citations (APA, MLA, SIST02, Arabic)",
     btnExportQuick: "MARC21 / BibTeX / RIS",
     btnSpineQuick: "Spine & Barcode Slip",
@@ -332,6 +390,43 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
     cpSaveBtn: "Save Settings",
     cpResetBtn: "Reset to Defaults",
 
+    btnAddCustomRecord: "Add / Import Records",
+    customModalTitle: "Custom Bibliographic Record & JSON5 Manager",
+    customModalSubtitle: "Add unindexed books or periodicals to your library catalog via a structured web form or JSON5 batch import.",
+    tabWebForm: "Manual Record Web Form",
+    tabJson5Import: "JSON5 Multi-Record Batch Import",
+    tabCodeGuide: "Direct Codebase Guide (File to Edit)",
+    customFormTitle: "Catalog a New Book or Periodical",
+    customFormSubtitle: "Fill in bibliographic details. Citations, check digits, and Arabic Dewey are calculated automatically.",
+    customFieldTitle: "Title (Main Title)",
+    customFieldSubtitle: "Subtitle / Series Title",
+    customFieldPublisher: "Publisher / Press",
+    customFieldYear: "Year / Publication Date",
+    customFieldLanguage: "Language",
+    customFieldMaterialType: "Material Type",
+    customFieldAuthors: "Authors & Contributors (Comma separated)",
+    customFieldIsbn13: "ISBN-13 (978...)",
+    customFieldIsbn10: "ISBN-10",
+    customFieldIssn: "ISSN (Periodical / Serial)",
+    customFieldNdc: "Nippon Decimal (NDC)",
+    customFieldDewey: "Standard Dewey (DDC)",
+    customFieldArabicDewey: "Arabic Dewey 10 (ALECSO)",
+    customFieldLcc: "Library of Congress (LCC)",
+    customFieldCoverUrl: "Cover Artwork Image URL",
+    customFieldDescription: "Description / Colophon / Abstract",
+    customFieldPages: "Page Count",
+    customFieldPrice: "List Price",
+    customSaveBtn: "Save & Index to Database",
+    customResetBtn: "Clear Form",
+    loadJson5SampleBtn: "Load Complete JSON5 Sample",
+    uploadJson5Btn: "Upload .json5 / .json File",
+    importJson5Btn: "Import All Records to Database",
+    json5SyntaxHelp: "JSON5 allows comments (//), unquoted keys, single quotes, and trailing commas. Perfect for bulk librarian imports.",
+    codeGuideTitle: "How to Add Permanent Custom Records in the Codebase",
+    codeGuideSubtitle: "For records that remain permanently bundled with the application without needing local browser storage:",
+    codeGuideFileLabel: "File to Edit in Workspace:",
+    codeGuideInstructions: "Open the file above, navigate to KNOWN_BIB_RECORDS, and paste your record using its ISBN-13, ISBN-10, or ISSN as the key.",
+
     notifyLookingUp: "Looking up & crawling catalog for",
     notifyRecordLoaded: "Catalog record loaded for",
     notifyError: "Failed to retrieve book metadata",
@@ -385,6 +480,16 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
 
     bibRecordBadge: "書誌レコード詳細",
     japaneseIsbn4Badge: "🇯🇵 日本のISBN4",
+    materialTypeBook: "図書（単行本・文庫）",
+    materialTypeMagazine: "雑誌・総合定期刊行物",
+    materialTypeJournal: "学術雑誌・紀要",
+    materialTypeSerial: "逐次刊行物",
+    issnBadge: "ISSN 登録番号",
+    publicationFrequency: "刊行頻度",
+    issnPortalRegistry: "ISSN国際センター（ROAD）",
+    periodicalDetailsTitle: "雑誌・逐次刊行物インテリジェンス",
+    foundedYearLabel: "創刊年・創刊号",
+    countryOfOriginLabel: "刊行国",
     btnCitationsQuick: "引用形式（SIST 02, APA, MLA, アラビア式）",
     btnExportQuick: "MARC21 / BibTeX / RIS",
     btnSpineQuick: "背表紙ラベル・配架スリップ",
@@ -493,6 +598,43 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
     cpSaveBtn: "設定を保存",
     cpResetBtn: "初期設定に戻す",
 
+    btnAddCustomRecord: "レコード追加・インポート",
+    customModalTitle: "カスタム書誌レコード管理＆JSON5インポート",
+    customModalSubtitle: "未採録の書籍や定期刊行物の個別手動登録、およびJSON5による複数レコード一括インポート。",
+    tabWebForm: "書誌手動入力フォーム",
+    tabJson5Import: "JSON5複数レコード一括インポート",
+    tabCodeGuide: "ソースコード直接編集ガイド",
+    customFormTitle: "新規書籍・逐次刊行物の登録",
+    customFormSubtitle: "書誌情報を入力すると、引用記号・検査数字・アラビア十進分類が自動算出されます。",
+    customFieldTitle: "書名・本タイトル",
+    customFieldSubtitle: "副書名・シリーズ名",
+    customFieldPublisher: "出版社・発行所",
+    customFieldYear: "出版年・発行日",
+    customFieldLanguage: "言語",
+    customFieldMaterialType: "資料種別",
+    customFieldAuthors: "著者・編者（カンマ区切り）",
+    customFieldIsbn13: "ISBN-13（978...）",
+    customFieldIsbn10: "ISBN-10",
+    customFieldIssn: "ISSN（雑誌・逐次刊行物）",
+    customFieldNdc: "日本十進分類法（NDC）",
+    customFieldDewey: "標準デューイ分類（DDC）",
+    customFieldArabicDewey: "アラビア十進分類10（ALECSO）",
+    customFieldLcc: "米国議会図書館分類（LCC）",
+    customFieldCoverUrl: "表紙画像URL",
+    customFieldDescription: "内容紹介・奥付・抄録",
+    customFieldPages: "ページ数",
+    customFieldPrice: "定価・本体価格",
+    customSaveBtn: "保存してデータベースに登録",
+    customResetBtn: "フォームをクリア",
+    loadJson5SampleBtn: "完全なJSON5サンプルを読込",
+    uploadJson5Btn: ".json5 / .jsonファイルを読込",
+    importJson5Btn: "全レコードを一括インポート",
+    json5SyntaxHelp: "JSON5はコメント（//）、引用符省略キー、単一引用符、末尾カンマに対応。司書の大量インポートに最適です。",
+    codeGuideTitle: "ソースコードに恒久レコードを追加する方法",
+    codeGuideSubtitle: "ブラウザのローカルストレージに依存せず、アプリに恒久的に組み込む場合：",
+    codeGuideFileLabel: "編集対象ファイル（ワークスペース）:",
+    codeGuideInstructions: "上記のファイルを開き、KNOWN_BIB_RECORDS の中に ISBN-13、ISBN-10 または ISSN をキーとしてレコードを追加してください。",
+
     notifyLookingUp: "目録を照会中:",
     notifyRecordLoaded: "書誌レコードを読み込みました:",
     notifyError: "書誌メタデータの取得に失敗しました",
@@ -546,6 +688,16 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
 
     bibRecordBadge: "السجل الببليوغرافي المفهرس",
     japaneseIsbn4Badge: "🇯🇵 ردمك ياباني ISBN4",
+    materialTypeBook: "كتاب (دراسة مفردة / مجلد)",
+    materialTypeMagazine: "مجلة ثقافية / دورية مصورة",
+    materialTypeJournal: "دورية علمية / مجلة محكمة",
+    materialTypeSerial: "مطبوعة متسلسلة / نشرة مستمرة",
+    issnBadge: "ردمد معتمد (ISSN)",
+    publicationFrequency: "دورية الصدور",
+    issnPortalRegistry: "المركز الدولي لترقيم الدوريات (ROAD / ISSN)",
+    periodicalDetailsTitle: "بيانات الدورية والمجلة المستمرة",
+    foundedYearLabel: "سنة التأسيس / أول عدد",
+    countryOfOriginLabel: "بلد الصدور",
     btnCitationsQuick: "صيغ التوثيق (المعيار العربي، APA، MLA، SIST02)",
     btnExportQuick: "تصدير مارك 21 / بيبتيك / RIS",
     btnSpineQuick: "بطاقة الرف وكعب الكتاب",
@@ -653,6 +805,43 @@ export const TRANSLATIONS: Record<UiLanguage, TranslationDict> = {
     cpRateLimitSection: "إعدادات حدود الطلبات وسرعة الزحف",
     cpSaveBtn: "حفظ الإعدادات",
     cpResetBtn: "استعادة القيم الافتراضية",
+
+    btnAddCustomRecord: "إضافة واستيراد سجلات",
+    customModalTitle: "إدارة السجلات المخصصة واستيراد JSON5",
+    customModalSubtitle: "إضافة الكتب والدوريات غير المفهرسة إلى قاعدة البيانات عبر استمارة ويب نموذجية أو استيراد دفعات متعددة بصيغة JSON5.",
+    tabWebForm: "استمارة التسجيل اليدوي",
+    tabJson5Import: "استيراد دفعات متعددة (JSON5)",
+    tabCodeGuide: "دليل التعديل المباشر في كود التطبيق",
+    customFormTitle: "فهرسة كتاب أو دورية جديدة",
+    customFormSubtitle: "أدخل البيانات الببليوغرافية، وسيتم احتساب التوثيق وأرقام التحقق وتصنيف ديوي العربي تلقائيًا.",
+    customFieldTitle: "عنوان الوعاء (العنوان الرئيسي)",
+    customFieldSubtitle: "العنوان الفرعي / اسم السلسلة",
+    customFieldPublisher: "دار النشر / جهة الإصدار",
+    customFieldYear: "سنة النشر / تاريخ الصدور",
+    customFieldLanguage: "لغة الوعاء",
+    customFieldMaterialType: "نوع المادة (كتاب / مجلة / دورية)",
+    customFieldAuthors: "المؤلفون والمشاركون (مفصولين بفواصل)",
+    customFieldIsbn13: "الترقيم الدولي الموحد ردمك 13 (978...)",
+    customFieldIsbn10: "ردمك 10 (ISBN-10)",
+    customFieldIssn: "الترقيم الدولي للدوريات ردمد (ISSN)",
+    customFieldNdc: "تصنيف نيبون العشري (NDC)",
+    customFieldDewey: "تصنيف ديوي القياسي (DDC)",
+    customFieldArabicDewey: "ديوي العشري العربي 10 (ألكسو)",
+    customFieldLcc: "تصنيف مكتبة الكونغرس (LCC)",
+    customFieldCoverUrl: "رابط صورة الغلاف",
+    customFieldDescription: "الوصف / بيانات الكولوفون / المستخلص",
+    customFieldPages: "عدد الصفحات",
+    customFieldPrice: "السعر الأصلي",
+    customSaveBtn: "حفظ وفهرسة في قاعدة البيانات",
+    customResetBtn: "تفريغ الاستمارة",
+    loadJson5SampleBtn: "تحميل نموذج JSON5 الشامل",
+    uploadJson5Btn: "رفع ملف .json5 أو .json",
+    importJson5Btn: "استيراد كافة السجلات إلى القاعدة",
+    json5SyntaxHelp: "يدعم معيار JSON5 التعليقات (//)، والمفاتيح غير المحاطة باقتباس، والفواصل الأخيرة، مما يجعله مثاليًا للفهرسة الجماعية للمكتبيين.",
+    codeGuideTitle: "كيفية إضافة سجلات دائمة في كود التطبيق",
+    codeGuideSubtitle: "لإضافة كتب ودوريات تظل مدمجة بصورة دائمة في التطبيق دون الحاجة لتخزين المتصفح المحلي:",
+    codeGuideFileLabel: "الملف المطلوب تعديله في مساحة العمل:",
+    codeGuideInstructions: "افتح الملف أعلاه، وتوجه إلى مصفوفة KNOWN_BIB_RECORDS، ثم الصق تسجيلة الكتاب مستخدمًا رقم ردمك 13 أو ردمك 10 أو ردمد ISSN كمفتاح للسجل.",
 
     notifyLookingUp: "جاري البحث والفهرسة للمعرف:",
     notifyRecordLoaded: "تم تحميل السجل الببليوغرافي لـ:",

@@ -10,6 +10,7 @@ export interface ParsedIdentifier {
     | "Japanese-ISBN4"
     | "ISBN-13"
     | "ISBN-10"
+    | "ISSN"
     | "Dual-Barcode-CCode"
     | "SBN"
     | "LCCN"
@@ -18,6 +19,7 @@ export interface ParsedIdentifier {
   isbn13?: string;
   isbn10?: string;
   japaneseIsbn4?: string;
+  issn?: string;
   cCode?: {
     code: string;
     audience: string;
@@ -192,9 +194,43 @@ export function isbn13To10(isbn13: string): string | null {
 }
 
 /**
- * Comprehensive parser for any book identifier:
+ * Calculate ISSN 8-digit check character (modulo 11 with weights 8..2)
+ */
+export function calculateIssnCheck(base7: string): string {
+  let sum = 0;
+  for (let i = 0; i < 7; i++) {
+    sum += parseInt(base7[i], 10) * (8 - i);
+  }
+  const rem = (11 - (sum % 11)) % 11;
+  return rem === 10 ? "X" : rem.toString();
+}
+
+/**
+ * Validate an 8-character ISSN string
+ */
+export function validateIssn(issn: string): boolean {
+  const clean = issn.replace(/[^0-9X]/gi, "").toUpperCase();
+  if (clean.length !== 8) return false;
+  const expected = calculateIssnCheck(clean.slice(0, 7));
+  return clean[7] === expected;
+}
+
+/**
+ * Format an 8-digit ISSN into standard XXXX-XXXX hyphenated display
+ */
+export function formatIssn(issn: string): string {
+  const clean = issn.replace(/[^0-9X]/gi, "").toUpperCase();
+  if (clean.length === 8) {
+    return `${clean.slice(0, 4)}-${clean.slice(4, 8)}`;
+  }
+  return issn;
+}
+
+/**
+ * Comprehensive parser for any book or periodical identifier:
  * - Japanese ISBN4 (e.g. ISBN4-06-200511-3, 4-06-200511-3)
  * - Dual Japanese Barcodes (EAN 9784... + 192...)
+ * - ISSN (e.g. 0028-0836, 0002-3973, 0407-7601)
  * - Arbitrary hyphens and letters (e.g. SBN, LCCN 2001-12345, OCLC, ASIN)
  */
 export function parseBookIdentifier(input: string): ParsedIdentifier {
@@ -219,6 +255,22 @@ export function parseBookIdentifier(input: string): ParsedIdentifier {
 
   // Digits and X only
   const digitsX = raw.replace(/[^0-9X]/gi, "").toUpperCase();
+
+  // Check for ISSN (International Standard Serial Number - 8 characters e.g. 0028-0836 or 0002-3973)
+  const isIssnPrefixed = /^ISSN\s*[:\s-]?/i.test(raw);
+  if (isIssnPrefixed || (digitsX.length === 8 && /^\d{4}-?\d{3}[\dX]$/i.test(raw.replace(/\s+/g, "")))) {
+    if (digitsX.length === 8) {
+      const isValid = validateIssn(digitsX);
+      const formatted = formatIssn(digitsX);
+      return {
+        raw,
+        cleaned,
+        type: "ISSN",
+        issn: formatted,
+        isValidCheckDigit: isValid,
+      };
+    }
+  }
 
   // 9-digit legacy SBN
   if (digitsX.length === 9) {

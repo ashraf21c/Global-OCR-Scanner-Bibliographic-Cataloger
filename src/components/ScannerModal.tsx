@@ -24,12 +24,14 @@ import { TRANSLATIONS, UiLanguage } from "../utils/translations";
 interface ScannerModalProps {
   onScanResult: (identifier: string, ocrDetails?: OcrResult) => void;
   isProcessing?: boolean;
+  onOpenCustomModal?: () => void;
   lang?: UiLanguage;
 }
 
 export const ScannerModal: React.FC<ScannerModalProps> = ({
   onScanResult,
   isProcessing = false,
+  onOpenCustomModal,
   lang = "en",
 }) => {
   const t = TRANSLATIONS[lang];
@@ -176,6 +178,51 @@ export const ScannerModal: React.FC<ScannerModalProps> = ({
           : lang === "ar"
           ? "المعيار البريطاني والدولي المعتمد قبل ردمك"
           : "Pre-ISBN 9-digit British/International format",
+    },
+    {
+      label:
+        lang === "ja"
+          ? "📰 アラビア雑誌（ مجلة العربي - クウェート）"
+          : lang === "ar"
+          ? "📰 مجلة ثقافية شهرية (مجلة العربي - الكويت)"
+          : "📰 Arabic Monthly Magazine (Al-Arabi - Kuwait)",
+      code: "0002-3973",
+      desc:
+        lang === "ja"
+          ? "ISSN 0002-3973 • クウェート情報省発行の代表的文化総合月刊誌（1958年創刊）"
+          : lang === "ar"
+          ? "ردمد 0002-3973 • تصدر عن وزارة الإعلام الكويتية منذ 1958 وتوزع في كافة الدول العربية"
+          : "ISSN 0002-3973 • Famous illustrated cultural monthly published since 1958",
+    },
+    {
+      label:
+        lang === "ja"
+          ? "📰 日本の総合月刊誌（文藝春秋 - 芥川賞発表）"
+          : lang === "ar"
+          ? "📰 مجلة يابانية فكرية وأدبية (بونغي شونجو - جائزة أكوتاغاوا)"
+          : "📰 Japanese Monthly Magazine (Bungeishunju)",
+      code: "0407-7601",
+      desc:
+        lang === "ja"
+          ? "ISSN 0407-7601 • 菊池寛創刊・芥川賞受賞作および選評全文掲載の総合月刊誌"
+          : lang === "ar"
+          ? "ردمد 0407-7601 • أسسها كيكوتشي كان 1923، وتعلن فيها جائزة أكوتاغاوا الأدبية"
+          : "ISSN 0407-7601 • Renowned literary & political monthly, awards Akutagawa Prize",
+    },
+    {
+      label:
+        lang === "ja"
+          ? "🔬 国際学術定期刊行物（Nature）"
+          : lang === "ar"
+          ? "🔬 دورية علمية دولية أسبوعية (Nature)"
+          : "🔬 International Scientific Journal (Nature)",
+      code: "0028-0836",
+      desc:
+        lang === "ja"
+          ? "ISSN 0028-0836 • 1869年創刊の世界最高峰の総合科学学術誌（週刊）"
+          : lang === "ar"
+          ? "ردمد 0028-0836 • أبرز دورية علمية محكمة أسبوعية في العالم (تأسست 1869)"
+          : "ISSN 0028-0836 • World's leading multidisciplinary science journal (weekly)",
     },
   ];
 
@@ -703,6 +750,35 @@ export const ScannerModal: React.FC<ScannerModalProps> = ({
                 {t.manualLookupBtn}
               </button>
             </div>
+
+            {manualInput.trim() && parseBookIdentifier(manualInput).type === "ISSN" && (
+              <div className="flex items-center gap-1.5 text-[11px] text-teal-300 bg-teal-950/60 border border-teal-800/80 px-2.5 py-1 rounded-lg">
+                <Sparkles className="w-3 h-3 text-teal-400" />
+                <span>
+                  {lang === "ja"
+                    ? "📰 ISSN（逐次刊行物・雑誌コード）を検出"
+                    : lang === "ar"
+                    ? "📰 تم اكتشاف ردمد (ISSN) لدورية أو مجلة مستمرة"
+                    : "📰 ISSN (Magazine / Periodical Identifier) Detected"}
+                </span>
+              </div>
+            )}
+
+            {onOpenCustomModal && (
+              <button
+                type="button"
+                onClick={onOpenCustomModal}
+                className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 pt-1 font-medium transition-colors cursor-pointer"
+              >
+                <span>
+                  {lang === "ja"
+                    ? "未採録の書籍・雑誌を手動登録、またはJSON5一括インポート →"
+                    : lang === "ar"
+                    ? "الكتاب أو المجلة غير متوفرة في الفهارس؟ أضف سجلاً يدويًا أو استورد عبر JSON5 ←"
+                    : "Unindexed book or magazine? Add custom record or import via JSON5 →"}
+                </span>
+              </button>
+            )}
           </form>
 
           {/* Quick One-Click Benchmark Identifiers */}
